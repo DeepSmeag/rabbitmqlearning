@@ -21,9 +21,10 @@ amqp.connect("amqp://localhost", (err, conn) => {
         );
         setTimeout(() => {
           console.log(" [x] Done %s", msg.content.toString());
+          ch.ack(msg);
         }, secs * 1000);
       },
-      { noAck: true }
+      { noAck: false }
     );
   });
 });
