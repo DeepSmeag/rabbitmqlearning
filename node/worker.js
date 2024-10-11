@@ -9,6 +9,7 @@ amqp.connect("amqp://localhost", (err, conn) => {
   conn.createChannel((err, ch) => {
     const q = "task_queue";
     ch.assertQueue(q, { durable: true });
+    ch.prefetch(5); // let's say at most we can process 5 things so we tell the queue to skip this instance if it already has 5 things going on
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q);
     ch.consume(
       q,
