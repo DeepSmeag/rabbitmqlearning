@@ -15,9 +15,7 @@ amqp.connect("amqp://localhost", (err, conn) => {
     const routingKey = taskID;
 
     ch.assertExchange(exchange, "direct", { durable: true });
-    ch.publish(exchange, "worker_queue", Buffer.from(routingKey), {
-      persistent: true,
-    });
+
     console.log(` [x] Sent taskID ${routingKey} to server workers`);
     // Creating the queue to listen on
     ch.assertQueue("", { exclusive: true }, (err, q) => {
@@ -42,5 +40,10 @@ amqp.connect("amqp://localhost", (err, conn) => {
         { noAck: true }
       );
     });
+    setTimeout(() => {
+      ch.publish(exchange, "worker_queue", Buffer.from(routingKey), {
+        persistent: true,
+      });
+    }, 500);
   });
 });
