@@ -17,6 +17,12 @@ To achieve these scenarios, we have 2 techniques from rabbitmq we're choosing: p
 
 The configuration works in a distributed system environment, since we do not depend on the number of client and server instances; the distribution is as uniform as possible with the round-robin strategy as a starting point and limitations are a concern starting at around 32000 concurrent clients, when the default limits of RabbitMQ would limit the number of queues [(here)](https://stackoverflow.com/questions/22989833/rabbitmq-how-many-queues-can-rabbitmq-handle-on-a-single-server), but this number can be modified and scaling the RabbitMQ system itself is a solution.
 
+## Links/References
+
+- RabbitMQ's [tutorials](https://www.rabbitmq.com/tutorials/tutorial-one-javascript)
+- RabbitMQ's [docs](https://www.rabbitmq.com/docs) - to a lesser extent
+- amqplib's [docs](https://amqp-node.github.io/amqplib/) - where I found out there's a promise-based API as well
+
 ### Notes / Considerations
 
 - it is advised by the RabbitMQ team and package contributors to use a single channel per thread or per way of communication; JS is single-threaded, but we have bi-directional communication between the instances and the queue; it would be recommended to create separate channels for each situation; to do this, the Promise-based API (amqplib) would be more intuitive (imo)
