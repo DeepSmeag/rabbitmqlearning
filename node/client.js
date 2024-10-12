@@ -43,8 +43,4 @@ amqp.connect("amqp://localhost", (err, conn) => {
       );
     });
   });
-  //   setTimeout(() => {
-  //     conn.close();
-  //     process.exit(0);
-  //   }, 500);
 });
